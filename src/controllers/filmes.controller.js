@@ -16,6 +16,19 @@ async function getFilmeId(req, res){
     res.send(filme.rows)
 }
 
+async function getFilmeTitulo(req, res){
+
+   try {
+        const { titulo }  = req.params
+
+        const filme = await connection.query(`SELECT * FROM filmes WHERE titulo ILIKE '%${titulo}%' `)
+
+        res.send(filme.rows)
+   } catch (error) {
+        return res.status(400).send(error.message)
+   }
+}
+
 async function insertFilmes(req, res){
     const { titulo, genero, ano, minutos } = req.body
 
@@ -38,5 +51,6 @@ async function insertFilmes(req, res){
 module.exports = {
     getFilmes,
     getFilmeId,
+    getFilmeTitulo,
     insertFilmes
 }

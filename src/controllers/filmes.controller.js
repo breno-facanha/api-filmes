@@ -1,4 +1,4 @@
-const connection = require('../models/connection')
+const connection = require ('../models/connection')
 
 function getFilmes(req, res){
     res.send("Rota de Filmes")

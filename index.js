@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const port = 4000
-const routesFilmes = require('./src/routes/filmes.js')
 const dotenv = require('dotenv')
+dotenv.config();
 
+const routesFilmes = require('./src/routes/filmes.js')
 
 app.use(express.json())
-dotenv.config();
 
 app.use('/filmes', routesFilmes)
 

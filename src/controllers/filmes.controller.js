@@ -7,6 +7,15 @@ async function getFilmes(req, res){
     res.send(filme.rows)
 }
 
+async function getFilmeId(req, res){
+
+    const { id } = req.params
+
+    const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
+
+    res.send(filme.rows)
+}
+
 async function insertFilmes(req, res){
     const { titulo, genero, ano, minutos } = req.body
 
@@ -28,5 +37,6 @@ async function insertFilmes(req, res){
 
 module.exports = {
     getFilmes,
+    getFilmeId,
     insertFilmes
 }

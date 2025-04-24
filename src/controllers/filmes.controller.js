@@ -1,7 +1,10 @@
 const connection = require ('../models/connection')
 
-function getFilmes(req, res){
-    res.send("Rota de Filmes")
+async function getFilmes(req, res){
+
+    const filme = await connection.query(`SELECT * FROM filmes `)
+
+    res.send(filme.rows)
 }
 
 async function insertFilmes(req, res){

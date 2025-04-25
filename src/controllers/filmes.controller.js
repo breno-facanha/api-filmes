@@ -56,10 +56,27 @@ async function deletarFilme(req, res){
     res.status(200).send({message: `Filme de id: ${id} deletado com sucesso`})
 }
 
+async function atualizarFilmes(req, res){
+    
+    const { titulo, genero, ano, minutos } = req.body
+    
+    const { id } = req.params
+
+    await connection.query(`UPDATE filmes SET 
+        titulo = '${titulo}',
+        genero = '${genero}',
+        ano = ${ano},
+        minutos = ${minutos}
+        WHERE id = ${id};`)
+
+    res.send({message: `Filme atualizado com sucesso`})
+}
+
 module.exports = {
     getFilmes,
     getFilmeId,
     getFilmeTitulo,
     insertFilmes,
-    deletarFilme
+    deletarFilme,
+    atualizarFilmes
 }

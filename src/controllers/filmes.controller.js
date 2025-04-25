@@ -48,9 +48,18 @@ async function insertFilmes(req, res){
     }
 }
 
+async function deletarFilme(req, res){
+    const { id } = req.params
+
+    await connection.query(`DELETE FROM filmes WHERE id = ${id}`)
+
+    res.status(200).send({message: `Filme de id: ${id} deletado com sucesso`})
+}
+
 module.exports = {
     getFilmes,
     getFilmeId,
     getFilmeTitulo,
-    insertFilmes
+    insertFilmes,
+    deletarFilme
 }

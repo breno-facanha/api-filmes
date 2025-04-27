@@ -1,19 +1,28 @@
 const connection = require ('../models/connection')
 
 async function getFilmes(req, res){
-
-    const filme = await connection.query(`SELECT * FROM filmes `)
-
-    res.send(filme.rows)
+    try {
+        const filme = await connection.query(`SELECT * FROM filmes `)
+        
+        res.send(filme.rows)    
+    } catch (error) {
+        res.status(400).send.message
+    }
+    
 }
 
 async function getFilmeId(req, res){
 
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
-
-    res.send(filme.rows)
+        const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
+    
+        res.send(filme.rows)    
+    } catch (error) {
+        res.status(400).send.message
+    }
+    
 }
 
 async function getFilmeTitulo(req, res){
@@ -30,6 +39,7 @@ async function getFilmeTitulo(req, res){
 }
 
 async function insertFilmes(req, res){
+
     const { titulo, genero, ano, minutos } = req.body
 
     if(!titulo, !genero, !ano, !minutos){
@@ -49,27 +59,38 @@ async function insertFilmes(req, res){
 }
 
 async function deleteFilme(req, res){
-    const { id } = req.params
 
-    await connection.query(`DELETE FROM filmes WHERE id = ${id}`)
+    try {
+        const { id } = req.params
 
-    res.status(200).send({message: `Filme de id: ${id} deletado com sucesso`})
+        await connection.query(`DELETE FROM filmes WHERE id = ${id}`)
+    
+        res.status(200).send({message: `Filme de id: ${id} deletado com sucesso`})    
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+    
 }
 
 async function updateFilmes(req, res){
 
-    const { titulo, genero, ano, minutos } = req.body
+    try {
+        const { titulo, genero, ano, minutos } = req.body
     
-    const { id } = req.params
+        const { id } = req.params
 
-    await connection.query(`UPDATE filmes SET 
-        titulo = '${titulo}',
-        genero = '${genero}',
-        ano = ${ano},
-        minutos = ${minutos}
-        WHERE id = ${id};`)
+        await connection.query(`UPDATE filmes SET 
+            titulo = '${titulo}',
+            genero = '${genero}',
+            ano = ${ano},
+            minutos = ${minutos}
+            WHERE id = ${id};`)
 
-    res.send({message: `Filme atualizado com sucesso`})
+        res.send({message: `Filme atualizado com sucesso`})    
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+    
 }
 
 module.exports = {

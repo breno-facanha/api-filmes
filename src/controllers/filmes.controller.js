@@ -3,25 +3,22 @@ const modelFilmes = require("../models/filmes")
 async function getFilmes(req, res){
    
     try {
-        const filme = await connection.query(`SELECT * FROM filmes `)
-        
-        res.send(filme.rows)    
+        const filmes = await modelFilmes.getFilmes()
+        return res.status(200).send(filmes)    
     } catch (error) {
-        res.status(400).send.message
+        res.status(400).send("Erro ao buscar filmes controler")
     }
     
 }
 
 async function getFilmeId(req, res){
+    const { id } = req.params
 
     try {
-        const { id } = req.params
-
-        const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
-    
-        res.send(filme.rows)    
+        const filme = await modelFilmes.getFilmeId(id)    
+        res.status(200).send(filme.rows)    
     } catch (error) {
-        res.status(400).send.message
+        res.status(400).send(error.message)
     }
     
 }

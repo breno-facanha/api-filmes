@@ -11,6 +11,22 @@ async function insertFilmes(filme){
 
 }
 
+async function getFilmes() {
+    try {
+        const filme = await connection.query(`SELECT * FROM filmes `)
+        return filme.rows
+    } catch (error) {
+        res.status(400).send("Erro ao buscar filmes model")
+    }
+}
+
+async function getFilmeId(id) {
+    const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
+    return filme
+}
+
 module.exports = {
-    insertFilmes
+    insertFilmes,
+    getFilmes,
+    getFilmeId
 }

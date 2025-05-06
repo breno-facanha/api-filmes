@@ -1,7 +1,7 @@
 function validadeInsertFilmes(req, res, next){
-    const { titulo, ano, genero, minutos} = req.body 
+    const { titulo, ano, genero, minutos, nota, sinopse, banner} = req.body 
     
-    if(!titulo || !genero || !ano || !minutos){
+    if(!titulo || !genero || !ano || !minutos || !nota || !sinopse || !banner){
         res.status(400).send({message:  "Inserir dados corretamente"})
     }
 

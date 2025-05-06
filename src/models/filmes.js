@@ -2,10 +2,10 @@ const connection = require("./connection.js")
 
 async function insertFilmes(filme){
     const filmeInsert = await connection.query(`
-        INSERT INTO filmes (titulo, genero, ano, minutos)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO filmes (titulo, genero, ano, minutos, nota, sinopse, banner)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *
-        `,[filme.titulo, filme.genero, filme.ano, filme.minutos])
+        `,[filme.titulo, filme.genero, filme.ano, filme.minutos, filme.nota, filme.sinopse, filme.banner])
 
     return filmeInsert.rows[0]
 
@@ -21,7 +21,7 @@ async function getFilmes() {
 }
 
 async function getFilmeId(id) {
-    const filme = await connection.query(`SELECT * FROM filmes WHERE id = ${id}`)
+    const filme = await connection.query(`SELECT * FROM filmes WHERE id = $1`, [id])
     return filme
 }
 

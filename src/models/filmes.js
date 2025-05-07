@@ -25,8 +25,14 @@ async function getFilmeId(id) {
     return filme
 }
 
+async function deleteFilmes(id) {
+    const filme = await connection.query(`DELETE FROM filmes WHERE id = $1`, [id])
+    return filme.rows[0]
+}
+
 module.exports = {
     insertFilmes,
     getFilmes,
-    getFilmeId
+    getFilmeId,
+    deleteFilmes
 }

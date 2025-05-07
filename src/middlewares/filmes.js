@@ -21,6 +21,17 @@ function validadeInsertFilmes(req, res, next){
     next()
 }
 
+function validateGetFilmById(req, res, next){
+    const { id } = req.params
+
+    if(!id){
+        return res.status(400).send("Id não informado")
+    }
+
+    next()
+}
+
 module.exports = {
-    validadeInsertFilmes
+    validadeInsertFilmes,
+    validateGetFilmById
 }

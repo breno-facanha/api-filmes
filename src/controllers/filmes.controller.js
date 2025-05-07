@@ -16,7 +16,7 @@ async function getFilmeId(req, res){
 
     try {
         const filme = await modelFilmes.getFilmeId(id)    
-        res.status(200).send(filme.rows)    
+        res.status(200).send(filme.rows[0])    
     } catch (error) {
         res.status(400).send(error.message)
     }
